@@ -2,11 +2,13 @@
 """
 .vcxproj 파일에 .generated.h 및 .generated.cpp 파일들을 자동으로 추가하고
 .vcxproj.filters 파일에 Generated 가상 폴더를 설정합니다.
+또한 Source/Runtime 하위 폴더들을 자동으로 AdditionalIncludeDirectories에 추가합니다.
 """
 
 import xml.etree.ElementTree as ET
 from pathlib import Path
 import sys
+import re
 
 
 def indent_xml(elem, level=0):
@@ -136,6 +138,97 @@ def update_vcxproj(vcxproj_path: Path, generated_cpp_files: list[Path], generate
         return True
     else:
         print(f"[INFO] No new files to add to {vcxproj_path.name}")
+        return False
+
+
+def update_include_directories(vcxproj_path: Path, source_dir: Path) -> bool:
+    """
+    Source/Runtime 하위의 모든 폴더를 스캔하여 AdditionalIncludeDirectories를 자동으로 업데이트합니다.
+
+    Args:
+        vcxproj_path: .vcxproj 파일 경로
+        source_dir: 소스 디렉토리 경로 (예: Source/Runtime)
+
+    Returns:
+        True if file was modified, False otherwise
+    """
+    if not vcxproj_path.exists():
+        print(f"[ERROR] vcxproj not found: {vcxproj_path}")
+        return False
+
+    if not source_dir.exists():
+        print(f"[ERROR] Source directory not found: {source_dir}")
+        return False
+
+    project_dir = vcxproj_path.parent
+
+    # Source/Runtime 하위의 모든 폴더 수집 (헤더 파일이 있는 폴더만)
+    runtime_dirs = set()
+    for header_file in source_dir.rglob("*.h"):
+        folder = header_file.parent
+        # 상대 경로로 변환
+        try:
+            rel_folder = folder.relative_to(project_dir)
+            runtime_dirs.add(rel_folder)
+        except ValueError:
+            continue
+
+    if not runtime_dirs:
+        print(f"[INFO] No header directories found in {source_dir}")
+        return False
+
+    # vcxproj 파일 읽기
+    with open(vcxproj_path, 'r', encoding='utf-8') as f:
+        content = f.read()
+
+    # AdditionalIncludeDirectories 패턴 찾기
+    pattern = r'(<AdditionalIncludeDirectories>)([^<]+)(</AdditionalIncludeDirectories>)'
+
+    modified = False
+
+    def update_includes(match):
+        nonlocal modified
+        prefix = match.group(1)
+        current_dirs = match.group(2)
+        suffix = match.group(3)
+
+        # 현재 include 디렉토리들 파싱
+        current_list = [d.strip() for d in current_dirs.split(';') if d.strip()]
+
+        # 기존 디렉토리들을 집합으로 변환 (비교용)
+        existing_normalized = set()
+        for d in current_list:
+            # $(ProjectDir)를 제거하고 정규화
+            normalized = d.replace('$(ProjectDir)', '').replace('\\', '/').strip('/')
+            existing_normalized.add(normalized)
+
+        # 새로운 디렉토리 추가
+        new_dirs_added = []
+        for runtime_dir in sorted(runtime_dirs):
+            normalized = str(runtime_dir).replace('\\', '/')
+            if normalized not in existing_normalized:
+                # $(ProjectDir) 형식으로 추가
+                dir_path = str(runtime_dir).replace('/', '\\')
+                vs_path = f"$(ProjectDir){dir_path}"
+                current_list.insert(-1, vs_path)  # %(AdditionalIncludeDirectories) 앞에 삽입
+                new_dirs_added.append(str(runtime_dir))
+                modified = True
+
+        if new_dirs_added:
+            for d in new_dirs_added:
+                print(f"  [+] Added include dir: {d}")
+
+        return prefix + ';'.join(current_list) + suffix
+
+    new_content = re.sub(pattern, update_includes, content)
+
+    if modified:
+        with open(vcxproj_path, 'w', encoding='utf-8') as f:
+            f.write(new_content)
+        print(f"[OK] Updated include directories in: {vcxproj_path.name}")
+        return True
+    else:
+        print(f"[INFO] All include directories already present in {vcxproj_path.name}")
         return False
 
 

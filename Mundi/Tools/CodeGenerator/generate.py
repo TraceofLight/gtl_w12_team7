@@ -348,19 +348,31 @@ def main():
         print(" Updating Visual Studio Project...")
         print("=" * 60)
 
-        # vcxproj_updater.py 실행
-        updater_script = Path(__file__).parent / "vcxproj_updater.py"
-        if updater_script.exists():
-            cmd = [sys.executable, str(updater_script), str(args.vcxproj)] + [str(f) for f in generated_files]
-            try:
-                result = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8')
-                print(result.stdout)
-                if result.returncode != 0:
-                    print(f"[WARNING] vcxproj update failed: {result.stderr}")
-            except Exception as e:
-                print(f"[WARNING] Failed to run vcxproj updater: {e}")
+        # Include Directories 자동 업데이트 (vcxproj_updater 모듈 직접 사용)
+        from vcxproj_updater import update_vcxproj, update_vcxproj_filters, update_include_directories
+
+        # 1. Include Directories 업데이트 (Source/Runtime 하위 폴더 자동 추가)
+        print("\n[Step 1] Updating Include Directories...")
+        include_updated = update_include_directories(args.vcxproj, args.source_dir)
+
+        # 2. Generated 파일 추가
+        print("\n[Step 2] Adding Generated Files...")
+        generated_cpp_files = [f for f in generated_files if f.suffix == '.cpp']
+        generated_h_files = [f for f in generated_files if f.suffix == '.h']
+
+        vcxproj_updated = update_vcxproj(args.vcxproj, generated_cpp_files, generated_h_files)
+
+        # 3. Filters 업데이트
+        filters_path = args.vcxproj.with_suffix(args.vcxproj.suffix + '.filters')
+        filters_updated = update_vcxproj_filters(filters_path, generated_cpp_files, generated_h_files)
+
+        print()
+        print("=" * 60)
+        if include_updated or vcxproj_updated or filters_updated:
+            print(" [OK] Project files updated!")
         else:
-            print(f"[WARNING] vcxproj_updater.py not found at {updater_script}")
+            print(" [INFO] No changes needed")
+        print("=" * 60)
     elif args.vcxproj:
         print(f"\n[WARNING] vcxproj file not found: {args.vcxproj}")
 
