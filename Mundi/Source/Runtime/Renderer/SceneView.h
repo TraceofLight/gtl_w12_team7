@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "Vector.h" // FMatrix
 #include "Enums.h"
 #include "CameraComponent.h"
@@ -48,6 +48,10 @@ public:
     FSceneView(FMinimalViewInfo* InMinimalViewInfo, URenderSettings* InRenderSettings);
     FSceneView(UCameraComponent* InCamera, FViewport* InViewport, URenderSettings* InRenderSettings);
 
+	FMatrix GetViewProjectionMatrix() const
+	{
+		return ViewMatrix * ProjectionMatrix;
+	}
 private:
     TArray<FShaderMacro> CreateViewShaderMacros();
 

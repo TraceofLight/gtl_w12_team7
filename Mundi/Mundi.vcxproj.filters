@@ -1462,6 +1462,7 @@
     <ClInclude Include="Source\Runtime\Engine\Particle\Spawn\ParticleModuleSpawn.h" />
     <ClInclude Include="Source\Runtime\Engine\Particle\TypeData\ParticleModuleTypeDataBase.h" />
     <ClInclude Include="Source\Runtime\Engine\Particle\Velocity\ParticleModuleVelocity.h" />
+    <ClInclude Include="Source\Runtime\Engine\Particle\ParticleHelper.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Shaders">

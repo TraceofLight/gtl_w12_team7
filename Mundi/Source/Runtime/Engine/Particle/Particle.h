@@ -37,6 +37,8 @@ struct FBaseParticle
 	/** Current color of the particle */
 	FLinearColor Color;
 
+	int32 Flags;					// Flags indicating various particle states
+
 	// TODO: Add additional particle properties as needed
 
 	FBaseParticle()

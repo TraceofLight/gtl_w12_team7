@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "Vector.h"
 
 void FVector::Log()
@@ -91,6 +91,16 @@ FVector FMatrix::TransformPosition(const FVector& V) const
 		V.X * M[0][0] + V.Y * M[1][0] + V.Z * M[2][0] + M[3][0],
 		V.X * M[0][1] + V.Y * M[1][1] + V.Z * M[2][1] + M[3][1],
 		V.X * M[0][2] + V.Y * M[1][2] + V.Z * M[2][2] + M[3][2]
+	};
+}
+
+FVector4 FMatrix::TransformPositionVector4(const FVector& V) const
+{
+	return {
+		V.X * M[0][0] + V.Y * M[1][0] + V.Z * M[2][0] + M[3][0],
+		V.X * M[0][1] + V.Y * M[1][1] + V.Z * M[2][1] + M[3][1],
+		V.X * M[0][2] + V.Y * M[1][2] + V.Z * M[2][2] + M[3][2],
+		V.X * M[0][3] + V.Y * M[1][3] + V.Z * M[2][3] + M[3][3]
 	};
 }
 

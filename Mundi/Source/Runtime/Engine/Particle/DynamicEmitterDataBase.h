@@ -34,9 +34,26 @@ struct FDynamicEmitterDataBase
 	//...
 };
 
+class FParticleOrder;
 struct FDynamicSpriteEmitterDataBase : public FDynamicEmitterDataBase
 {
-	void SortSpriteParticles(...);
+	/**
+	 *	Sort the given sprite particles
+	 *
+	 *	@param	SortMode			The sort mode to utilize (EParticleSortMode)
+	 *	@param	bLocalSpace			true if the emitter is using local space
+	 *	@param	ParticleCount		The number of particles
+	 *	@param	ParticleData		The actual particle data
+	 *	@param	ParticleStride		The stride between entries in the ParticleData array
+	 *	@param	ParticleIndices		Indirect index list into ParticleData
+	 *	@param	View				The scene view being rendered
+	 *	@param	LocalToWorld		The local to world transform of the component rendering the emitter
+	 *	@param	ParticleOrder		The array to fill in with ordered indices
+	 */
+	void SortSpriteParticles(EParticleSortMode SortMode, bool bLocalSpace,
+		int32 ParticleCount, const uint8* ParticleData, int32 ParticleStride, const uint16* ParticleIndices,
+		const FSceneView* View, const FMatrix& LocalToWorld, FParticleOrder* ParticleOrder) const;
+
 	virtual int32 GetDynamicVertexStride() const = 0;
 	//...
 
