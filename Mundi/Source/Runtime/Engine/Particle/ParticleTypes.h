@@ -72,6 +72,30 @@ enum class EParticleBurstMethod : uint8
 	Interpolated    // 보간
 };
 
+// 이미터 렌더링 모드
+enum class EEmitterRenderMode : uint8
+{
+	Normal,         // 일반 렌더링
+	Point,          // 포인트 렌더링
+	Cross,          // 십자가 렌더링
+	None            // 렌더링 안 함
+};
+
+// 파티클 시스템 LOD 방식
+enum class EParticleSystemLODMethod : uint8
+{
+	Automatic,          // 자동 (거리 기반)
+	DirectSet,          // 직접 설정
+	ActivateAutomatic   // 활성화 시 자동
+};
+
+// 파티클 시스템 업데이트 모드
+enum class EParticleSystemUpdateMode : uint8
+{
+	RealTime,       // 실시간
+	FixedTime       // 고정 시간
+};
+
 /**
  * @brief 파티클 버스트 데이터
  * @details 특정 시간에 한 번에 생성할 파티클 정보

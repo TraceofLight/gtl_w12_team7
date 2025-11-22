@@ -472,6 +472,7 @@
     <ClCompile Include="Source\Runtime\Engine\Particle\Color\ParticleModuleColor.cpp" />
     <ClCompile Include="Source\Runtime\Engine\Particle\Lifetime\ParticleModuleLifetime.cpp" />
     <ClCompile Include="Source\Runtime\Engine\Particle\Location\ParticleModuleLocation.cpp" />
+    <ClCompile Include="Source\Runtime\Engine\Particle\ParticleEmitter.cpp" />
     <ClCompile Include="Source\Runtime\Engine\Particle\ParticleLODLevel.cpp" />
     <ClCompile Include="Source\Runtime\Engine\Particle\ParticleModule.cpp" />
     <ClCompile Include="Source\Runtime\Engine\Particle\ParticleModuleRequired.cpp" />
@@ -783,6 +784,7 @@
     <ClInclude Include="Source\Runtime\Engine\Particle\Location\ParticleModuleLocation.h" />
     <ClInclude Include="Source\Runtime\Engine\Particle\Particle.h" />
     <ClInclude Include="Source\Runtime\Engine\Particle\ParticleDataContainer.h" />
+    <ClInclude Include="Source\Runtime\Engine\Particle\ParticleEmitter.h" />
     <ClInclude Include="Source\Runtime\Engine\Particle\ParticleEmitterInstance.h" />
     <ClInclude Include="Source\Runtime\Engine\Particle\ParticleLODLevel.h" />
     <ClInclude Include="Source\Runtime\Engine\Particle\ParticleModule.h" />
