@@ -10,6 +10,9 @@ struct FBaseParticle
 	/** Current location of the particle in world space */
 	FVector Location;
 
+	/** Previous frame location for interpolation */
+	FVector OldLocation;
+
 	/** Current velocity of the particle */
 	FVector Velocity;
 
@@ -34,10 +37,13 @@ struct FBaseParticle
 	/** Current color of the particle */
 	FLinearColor Color;
 
+	int32 Flags;					// Flags indicating various particle states
+
 	// TODO: Add additional particle properties as needed
 
 	FBaseParticle()
 		: Location(FVector::Zero())
+		, OldLocation(FVector::Zero())
 		, Velocity(FVector::Zero())
 		, RelativeTime(0.0f)
 		, Lifetime(0.0f)

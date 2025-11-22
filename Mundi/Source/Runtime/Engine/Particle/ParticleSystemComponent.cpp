@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "ParticleSystemComponent.h"
+#include "ParticleEmitterInstance.h"
+#include "ParticleDataContainer.h"
 
 UParticleSystemComponent::UParticleSystemComponent()
 	: Template(nullptr)

@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -680,6 +680,20 @@
     <ClCompile Include="Generated\UParticleSystemComponent.generated.cpp">
       <Filter>Generated</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Runtime\Engine\Particle\ParticleSystemComponent.cpp" />
+    <ClCompile Include="Source\Runtime\Engine\Particle\Color\ParticleModuleColor.cpp" />
+    <ClCompile Include="Source\Runtime\Engine\Particle\Lifetime\ParticleModuleLifetime.cpp" />
+    <ClCompile Include="Source\Runtime\Engine\Particle\Location\ParticleModuleLocation.cpp" />
+    <ClCompile Include="Source\Runtime\Engine\Particle\ParticleEmitter.cpp" />
+    <ClCompile Include="Source\Runtime\Engine\Particle\ParticleLODLevel.cpp" />
+    <ClCompile Include="Source\Runtime\Engine\Particle\ParticleModule.cpp" />
+    <ClCompile Include="Source\Runtime\Engine\Particle\ParticleModuleRequired.cpp" />
+    <ClCompile Include="Source\Runtime\Engine\Particle\ParticleSystem.cpp" />
+    <ClCompile Include="Source\Runtime\Engine\Particle\Size\ParticleModuleSize.cpp" />
+    <ClCompile Include="Source\Runtime\Engine\Particle\Spawn\ParticleModuleSpawn.cpp" />
+    <ClCompile Include="Source\Runtime\Engine\Particle\TypeData\ParticleModuleTypeDataBase.cpp" />
+    <ClCompile Include="Source\Runtime\Engine\Particle\DynamicEmitterDataBase.cpp" />
+    <ClCompile Include="Source\Runtime\Engine\Particle\Velocity\ParticleModuleVelocity.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -1433,6 +1447,22 @@
     <ClInclude Include="Generated\UParticleSystemComponent.generated.h">
       <Filter>Generated</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Runtime\Engine\Particle\Color\ParticleModuleColor.h" />
+    <ClInclude Include="Source\Runtime\Engine\Particle\DynamicEmitterDataBase.h" />
+    <ClInclude Include="Source\Runtime\Engine\Particle\Lifetime\ParticleModuleLifetime.h" />
+    <ClInclude Include="Source\Runtime\Engine\Particle\Location\ParticleModuleLocation.h" />
+    <ClInclude Include="Source\Runtime\Engine\Particle\ParticleEmitter.h" />
+    <ClInclude Include="Source\Runtime\Engine\Particle\ParticleLODLevel.h" />
+    <ClInclude Include="Source\Runtime\Engine\Particle\ParticleModule.h" />
+    <ClInclude Include="Source\Runtime\Engine\Particle\ParticleModuleRequired.h" />
+    <ClInclude Include="Source\Runtime\Engine\Particle\ParticleSystem.h" />
+    <ClInclude Include="Source\Runtime\Engine\Particle\DynamicEmitterReplayDataBase.h" />
+    <ClInclude Include="Source\Runtime\Engine\Particle\ParticleTypes.h" />
+    <ClInclude Include="Source\Runtime\Engine\Particle\Size\ParticleModuleSize.h" />
+    <ClInclude Include="Source\Runtime\Engine\Particle\Spawn\ParticleModuleSpawn.h" />
+    <ClInclude Include="Source\Runtime\Engine\Particle\TypeData\ParticleModuleTypeDataBase.h" />
+    <ClInclude Include="Source\Runtime\Engine\Particle\Velocity\ParticleModuleVelocity.h" />
+    <ClInclude Include="Source\Runtime\Engine\Particle\ParticleHelper.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Shaders">

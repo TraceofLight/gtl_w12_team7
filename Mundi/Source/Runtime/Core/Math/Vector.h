@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include <cmath>        // ← 추가 (std::sin, std::cos, std::atan2, std::copysign 등)
 #include <algorithm>
 #include <string>
@@ -1047,6 +1047,8 @@ struct alignas(16) FMatrix
 
 	FVector TransformPosition(const FVector& V) const;
 	FVector TransformVector(const FVector& V) const;
+
+	FVector4 TransformPositionVector4(const FVector& V) const;
 
 	// View/Proj (L H)
 	static FMatrix LookAtLH(const FVector& Eye, const FVector& At, const FVector& Up);
