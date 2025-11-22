@@ -132,7 +132,7 @@ bool UParticleEmitter::AutogenerateLowestLODLevel()
 	}
 
 	// 새 LOD 레벨 생성 (간소화된 버전)
-	UParticleLODLevel* NewLOD = FObjectFactory::ConstructObject<UParticleLODLevel>();
+	UParticleLODLevel* NewLOD = new UParticleLODLevel();
 	NewLOD->Level = 1;
 	NewLOD->bEnabled = true;
 

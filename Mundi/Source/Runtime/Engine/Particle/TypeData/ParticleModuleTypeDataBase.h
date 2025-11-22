@@ -21,6 +21,7 @@ public:
 
 	virtual EDynamicEmitterType GetEmitterType() const;
 	virtual const char* GetVertexFactoryName() const;
+	virtual bool IsGPUSprites() const { return false; }
 };
 
 /**
